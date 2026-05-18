@@ -142,6 +142,8 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
     → Spark infere int Python como LongType/BIGINT; fix: adicionar .option("overwriteSchema", "true")
   - information_schema.tables não tem coluna 'location' no Unity Catalog
     → Usar DESCRIBE DETAIL workspace.schema.tabela para obter storage location
+  - is_account_admin() → ROUTINE_NOT_FOUND no Serverless
+    → Substituir por current_user() = 'usuario@email.com' para Column Masks
 
 O que FUNCIONA normalmente no Serverless:
   - spark (SparkSession) completo
