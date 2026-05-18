@@ -179,8 +179,27 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
     → Outros pacotes ML também ausentes: scikit-learn pode estar disponível, tensorflow/pytorch não
   - typing_extensions conflito de versão (pydantic-core):
     → Erro: ImportError: cannot import name 'Sentinel' from 'typing_extensions'
-    → Causa: pydantic-core (dependência do mlflow) exige typing_extensions>=4.12.0
-    → Fix: sempre instalar com versão mínima e --upgrade: `%pip install mlflow "typing_extensions>=4.12.0" --upgrade --quiet`
+    → Causa raiz: o Databricks Serverless coloca /databricks/python/lib/... ANTES do pip env
+      no sys.path; mesmo com --upgrade, o typing_extensions ANTIGO do sistema é carregado primeiro
+    → %pip install com --upgrade instala a versão correta no pip env MAS não resolve o sys.path
+    → Fix definitivo: reordenar sys.path na célula de imports, ANTES de import mlflow:
+      ```python
+      import os, sys
+      for name in list(sys.modules):
+          if name == "typing_extensions" or name.startswith("mlflow"):
+              sys.modules.pop(name, None)
+      for p in list(sys.path):
+          fp = os.path.join(p, "typing_extensions.py")
+          if "site-packages" in p and os.path.exists(fp):
+              with open(fp, "r", encoding="utf-8", errors="ignore") as f:
+                  if "Sentinel" in f.read(5000):
+                      sys.path.remove(p)
+                      sys.path.insert(0, p)
+                      break
+      import mlflow
+      ```
+    → Lógica: encontra o site-packages que TEM Sentinel (o pip env atualizado)
+      e o move para o início do sys.path antes de qualquer import
   - from pyspark.sql import functions as F ausente em notebooks MLflow:
     → Erro: NameError: name 'F' is not defined (ao usar F.col() em spark_udf)
     → Fix: adicionar `from pyspark.sql import functions as F` na célula de imports
