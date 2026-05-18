@@ -447,6 +447,18 @@ target = DeltaTable.forName(spark, "clientes")
     .whenNotMatchedInsertAll()
     .execute()
 )
+
+# ─── Métricas do MERGE ───────────────────────────────────────────────────────
+# ⚠️ ARMADILHA: hist[0] nem sempre é o MERGE!
+# Se um OPTIMIZE ou outro comando foi executado depois, hist[0] captura esse.
+# Use busca explícita pela operação:
+hist = spark.sql("DESCRIBE HISTORY delta.`/path/tabela`").collect()
+entrada_merge = next((h for h in hist if h["operation"] == "MERGE"), None)
+if entrada_merge:
+    m = entrada_merge["operationMetrics"]
+    print(m["numTargetRowsInserted"])  # inseridos
+    print(m["numTargetRowsUpdated"])   # atualizados
+    print(m["numTargetRowsDeleted"])   # deletados
 ```
 
 ---
@@ -542,6 +554,14 @@ spark.sql("VACUUM minha_tabela RETAIN 0 HOURS DRY RUN")  # simula sem deletar
 
 # ⚠️ CUIDADO: após VACUUM, time travel para versões antigas FALHA
 # Sempre conferir o retention period antes de executar em produção
+
+# ⚠️ SERVERLESS / SPARK CONNECT: VACUUM RETAIN 0 HOURS não funciona!
+# CONFIG_NOT_AVAILABLE: spark.databricks.delta.retentionDurationCheck.enabled
+# Motivo: Serverless bloqueia configs de retenção por política de segurança.
+# Solução: executar em cluster All-Purpose com:
+#   spark.conf.set("spark.databricks.delta.retentionDurationCheck.enabled", "false")
+#   spark.sql("VACUUM tabela RETAIN 0 HOURS")
+# Em Serverless: use RETAIN 168 HOURS (padrão) — suficiente para produção.
 
 # Configuração da tabela:
 spark.sql("""
