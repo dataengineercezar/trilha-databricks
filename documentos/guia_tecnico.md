@@ -140,6 +140,8 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
     → Afeta Managed Tables (semana06) e External Tables (semana07); em ambos casos, usar saveAsTable()
   - DELTA_FAILED_TO_MERGE_FIELDS (ex: INT vs BIGINT) ao usar saveAsTable com mode("overwrite")
     → Spark infere int Python como LongType/BIGINT; fix: adicionar .option("overwriteSchema", "true")
+  - information_schema.tables não tem coluna 'location' no Unity Catalog
+    → Usar DESCRIBE DETAIL workspace.schema.tabela para obter storage location
 
 O que FUNCIONA normalmente no Serverless:
   - spark (SparkSession) completo
