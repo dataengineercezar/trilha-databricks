@@ -203,6 +203,18 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
   - from pyspark.sql import functions as F ausente em notebooks MLflow:
     → Erro: NameError: name 'F' is not defined (ao usar F.col() em spark_udf)
     → Fix: adicionar `from pyspark.sql import functions as F` na célula de imports
+  - Unity Catalog exige model signature para registro:
+    → Erro: MlflowException: Model passed for registration did not contain any signature metadata.
+      All models in the Unity Catalog must be logged with a model signature containing both
+      input and output type specifications.
+    → Causa: `mlflow.sklearn.log_model(model, artifact_path="model")` sem `signature=`
+    → Fix: usar `infer_signature` ao logar o modelo:
+      ```python
+      from mlflow.models import infer_signature
+      signature = infer_signature(X_train, model.predict(X_train))
+      mlflow.sklearn.log_model(model, artifact_path="model", signature=signature)
+      ```
+    → Nota: o UC Catalog não aceita registro sem signature — o MLflow OSS aceita mas o UC não
 
 O que FUNCIONA normalmente no Serverless:
   - spark (SparkSession) completo
