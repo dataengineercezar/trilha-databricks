@@ -137,6 +137,8 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
   - input_file_name() → UC_COMMAND_NOT_SUPPORTED — usar F.col("_metadata.file_path")
   - CREATE TABLE ... LOCATION '/Volumes/...' → INVALID_PARAMETER_VALUE (Volume path inválido como LOCATION)
     → LOCATION só aceita cloud paths (s3://, abfss://); para Volumes usar saveAsTable()
+  - DELTA_FAILED_TO_MERGE_FIELDS (ex: INT vs BIGINT) ao usar saveAsTable com mode("overwrite")
+    → Spark infere int Python como LongType/BIGINT; fix: adicionar .option("overwriteSchema", "true")
 
 O que FUNCIONA normalmente no Serverless:
   - spark (SparkSession) completo
