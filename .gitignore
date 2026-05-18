@@ -1,0 +1,83 @@
+# ─── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+
+# ─── Virtual environments ─────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+.env
+
+# ─── Databricks ───────────────────────────────────────────────────────────────
+.databricks/
+.databricks-connect
+databricks-connect.json
+
+# ─── Databricks Asset Bundles artifacts ──────────────────────────────────────
+.databricks/bundle/
+
+# ─── Secrets / credenciais ────────────────────────────────────────────────────
+# NUNCA commitar tokens ou credenciais!
+*.token
+.env.local
+.databrickscfg   # contém tokens de acesso
+secrets.yml
+credentials.json
+
+# ─── Jupyter ──────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ─── Delta Lake local (dados de teste) ───────────────────────────────────────
+data/
+*.parquet
+*.delta/
+_delta_log/
+
+# ─── MLflow ───────────────────────────────────────────────────────────────────
+mlruns/
+mlartifacts/
+
+# ─── Spark logs e temp ────────────────────────────────────────────────────────
+derby.log
+metastore_db/
+spark-warehouse/
+
+# ─── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ─── VS Code ──────────────────────────────────────────────────────────────────
+.vscode/settings.json
+# (manter .vscode/ no git, mas ignorar settings pessoais)
+
+# ─── Ruff / linting cache ────────────────────────────────────────────────────
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+
+# ─── Arquivos de output dos exercícios ───────────────────────────────────────
+output/
+checkpoints/
+
+# ─── Monetização (não faz parte da trilha de estudos) ────────────────────────
+monetizacao/
+documentos/monetizacao_repositorio.md
+
+# ─── Publicações de terceiros ─────────────────────────────────────────────────
+documentos/*.pdf
+documentos/*.epub
+documentos/*.docx
+
+# ─── Scripts pessoais de teste de conexão ─────────────────────────────────────
+test_connect.py

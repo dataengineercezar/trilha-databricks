@@ -1,0 +1,22 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Notebooks: sem diff de output (evita commits gigantes de células executadas)
+*.ipynb merge=union
+
+# Databricks notebooks exportados como source
+*.py text eol=lf
+
+# SQL files
+*.sql text eol=lf
+
+# YAML
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Binaries: não tentar converter
+*.parquet binary
+*.gz binary
+*.zip binary
+*.png binary
+*.jpg binary
