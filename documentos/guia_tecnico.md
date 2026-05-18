@@ -169,6 +169,14 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
     → Para registrar a tabela no UC e usar spark.table(), executar após a escrita:
         spark.sql("CREATE TABLE IF NOT EXISTS workspace.estudos.bronze_taxi
                    USING DELTA LOCATION '/Volumes/workspace/estudos/semana05/bronze/taxi_trips'")
+  - mlflow NÃO está disponível no Serverless padrão — apenas no Databricks Runtime ML
+    → Erro: ModuleNotFoundError: No module named 'mlflow'
+    → Fix: adicionar %pip install mlflow --quiet --no-warn-conflicts como primeira célula executável
+    → O %pip install no Databricks reinicia o kernel Python AUTOMATICAMENTE após a instalação
+    → A mensagem "Note: you may need to restart the kernel using %restart_python..." é apenas
+      um aviso genérico do pip — o reinício já ocorre automaticamente; NÃO chamar restartPython()
+    → Warnings de conflito (anyio, protobuf) são inofensivos — mlflow instala e funciona normalmente
+    → Outros pacotes ML também ausentes: scikit-learn pode estar disponível, tensorflow/pytorch não
 
 O que FUNCIONA normalmente no Serverless:
   - spark (SparkSession) completo
