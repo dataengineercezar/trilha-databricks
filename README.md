@@ -65,7 +65,8 @@ trilha-databricks/
 │   ├── semana05_medallion/            ← Bronze/Silver/Gold, streaming ingest
 │   ├── semana06_databricks_sql/       ← SQL Warehouses, dashboards
 │   ├── semana07_unity_catalog/        ← Governança, catalogs, row/col-level security
-│   ├── semana08_workflows_dlt/        ├── semana09_mlflow/
+│   ├── semana08_workflows_dlt/
+│   ├── semana09_mlflow/
 │   ├── semana10_performance/
 │   ├── semana11_cicd/
 │   └── semana12_certificacao/
