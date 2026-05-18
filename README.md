@@ -24,6 +24,29 @@ Organizado como guia de consulta para revisão rápida e aprofundamento progress
 
 ---
 
+## Conteúdo Premium — Semanas 03 a 12
+
+As semanas 03–12 estão disponíveis no repositório privado, com acesso liberado automaticamente após a compra.
+
+> **[Adquirir acesso premium → datawizard8.gumroad.com/l/vdmiqz](https://datawizard8.gumroad.com/l/vdmiqz)**
+
+No checkout, informe seu **usuário do GitHub** — o convite ao repositório privado é enviado automaticamente em segundos.
+
+| Semana | Tema |
+|--------|------|
+| 3 | Delta Lake fundamentos — ACID, time travel, schema enforcement |
+| 4 | Delta Lake avançado — OPTIMIZE, VACUUM, Z-ORDER, MERGE |
+| 5 | Medallion Architecture — Bronze / Silver / Gold, AutoLoader |
+| 6 | Databricks SQL — QUALIFY, window functions, PIVOT |
+| 7 | Unity Catalog — GRANT, Row Filter, Column Mask |
+| 8 | Workflows + Delta Live Tables |
+| 9 | MLflow — tracking, Model Registry, Spark UDF |
+| 10 | Performance — Photon, AQE, Delta Cache, Spark UI |
+| 11 | CI/CD — Asset Bundles, GitHub Actions |
+| 12 | Certificação — revisão completa + simulado |
+
+---
+
 ## Estrutura do repositório
 
 ```
