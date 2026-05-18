@@ -144,6 +144,12 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
     → Usar DESCRIBE DETAIL workspace.schema.tabela para obter storage location
   - is_account_admin() → ROUTINE_NOT_FOUND no Serverless
     → Substituir por current_user() = 'usuario@email.com' para Column Masks
+  - databricks jobs create --json @arquivo.yaml não funciona de dentro do notebook
+    → O YAML salvo em Volume (/Volumes/...) não é acessível como arquivo local para o CLI
+    → Alternativa: criar o job via REST API com requests.post() usando token do contexto do notebook:
+      ctx = dbutils.notebook.entry_point.getDbutils().notebook().getContext()
+      token = ctx.apiToken().get() ; host = ctx.apiUrl().get()
+      requests.post(f"{host}/api/2.1/jobs/create", headers={"Authorization": f"Bearer {token}"}, json=job_settings)
 
 O que FUNCIONA normalmente no Serverless:
   - spark (SparkSession) completo
