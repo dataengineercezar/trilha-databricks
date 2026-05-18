@@ -171,7 +171,7 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
                    USING DELTA LOCATION '/Volumes/workspace/estudos/semana05/bronze/taxi_trips'")
   - mlflow NÃO está disponível no Serverless padrão — apenas no Databricks Runtime ML
     → Erro: ModuleNotFoundError: No module named 'mlflow'
-    → Fix: `%pip install mlflow "typing_extensions>=4.12.0" --quiet --no-warn-conflicts`
+    → Fix: `%pip install mlflow "typing_extensions>=4.12.0" --upgrade --quiet`
     → O %pip install no Databricks reinicia o kernel Python AUTOMATICAMENTE após a instalação
     → A mensagem "Note: you may need to restart the kernel using %restart_python..." é apenas
       um aviso genérico do pip — o reinício já ocorre automaticamente; NÃO chamar restartPython()
@@ -180,7 +180,7 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
   - typing_extensions conflito de versão (pydantic-core):
     → Erro: ImportError: cannot import name 'Sentinel' from 'typing_extensions'
     → Causa: pydantic-core (dependência do mlflow) exige typing_extensions>=4.12.0
-    → Fix: sempre instalar com versão mínima: `%pip install mlflow "typing_extensions>=4.12.0" --quiet --no-warn-conflicts`
+    → Fix: sempre instalar com versão mínima e --upgrade: `%pip install mlflow "typing_extensions>=4.12.0" --upgrade --quiet`
   - from pyspark.sql import functions as F ausente em notebooks MLflow:
     → Erro: NameError: name 'F' is not defined (ao usar F.col() em spark_udf)
     → Fix: adicionar `from pyspark.sql import functions as F` na célula de imports

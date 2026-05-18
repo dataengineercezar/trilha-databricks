@@ -13,7 +13,7 @@ Organizado como guia de consulta para revisão rápida e aprofundamento progress
 | 2 | Spark no Databricks — clusters, notebooks, magic commands, DBFS | ✅ | Q1–Q4 + local script |
 | 3 | Delta Lake fundamentos — ACID, time travel, schema enforcement | ✅ | Q1_Parquet_vs_Delta, Q2_Transaction_Log, Q3_MERGE_INTO, Q4_Time_Travel |
 | 4 | Delta Lake avançado — OPTIMIZE, VACUUM, Z-ORDER, MERGE | ✅ | Q1_Small_Files_OPTIMIZE, Q2_ZORDER_DataSkipping, Q3_VACUUM_SchemaEvolution |
-| 5 | Medallion Architecture — Bronze / Silver / Gold no Databricks | ✅ | Pipeline_Medallion_AutoLoader |
+| 5 | Medallion Architecture — Bronze / Silver / Gold no Databricks | ✅ | bronze_ingest (AutoLoader) |
 | 6 | Databricks SQL — QUALIFY, window functions, PIVOT, Delta SQL | ✅ | SQL_Avancado_Databricks |
 | 7 | Unity Catalog — Managed vs External, GRANT, Row Filter, Column Mask | ✅ | Unity_Catalog_Governanca |
 | 8 | Workflows + Delta Live Tables — Jobs, DLT, @dlt.expect | ✅ | Workflows_DLT |
@@ -177,26 +177,22 @@ Configuração básica após instalar a extensão:
 # Importar TODOS os exercícios da trilha de uma vez
 databricks workspace import-dir `
   "d:\3_Estudos\TRILHA_DATABRICKS\exercicios" `
-  /Users/cezardatabricks@gmail.com `
-  --profile cezar_databricks `
+  /Users/<seu-email>@gmail.com `
   --overwrite
 
 # Importar uma semana específica
 databricks workspace import-dir `
   "d:\3_Estudos\TRILHA_DATABRICKS\exercicios\semana02_spark_databricks\notebooks" `
-  /Users/cezardatabricks@gmail.com/semana02 `
-  --profile cezar_databricks
+  /Users/<seu-email>@gmail.com/semana02
 
 # Para um notebook individual
 databricks workspace import `
   "d:\3_Estudos\TRILHA_DATABRICKS\exercicios\semana02_spark_databricks\notebooks\Q1_DBR_Configs.ipynb" `
-  /Users/cezardatabricks@gmail.com/semana02/Q1_DBR_Configs `
-  --format JUPYTER `
-  --profile cezar_databricks
+  /Users/<seu-email>@gmail.com/semana02/Q1_DBR_Configs `
+  --format JUPYTER
 ```
 
-> `--profile cezar_databricks` refere-se ao perfil configurado em `~/.databrickscfg`
-> (criado automaticamente pela VS Code Extension).
+> O perfil padrão é configurado automaticamente pela VS Code Extension em `~/.databrickscfg`.
 > O flag `--format JUPYTER` é necessário para arquivos `.ipynb`.
 
 ---
