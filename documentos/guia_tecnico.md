@@ -153,6 +153,22 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
       ctx = dbutils.notebook.entry_point.getDbutils().notebook().getContext()
       token = ctx.apiToken().get() ; host = ctx.apiUrl().get()
       requests.post(f"{host}/api/2.1/jobs/create", headers={"Authorization": f"Bearer {token}"}, json=job_settings)
+  - Auto Loader com trigger(availableNow=True) em fonte vazia NÃO cria a tabela Delta
+    → Se não há arquivos na landing zone, o stream inicia e encerra sem nenhum micro-batch
+    → A tabela Delta de destino nunca é criada (Delta só cria a tabela na primeira escrita)
+    → O notebook/task termina com sucesso (exit code 0) mas a tabela downstream não existe
+    → Fix na task seguinte: usar spark.read.format('delta').load(PATH) com try/except ao invés de
+      spark.table('catalog.schema.tabela') — Auto Loader escreve por CAMINHO, não como tabela UC
+    → Verificar existência com: spark.catalog.tableExists() OU try/except checando 'Path does not exist'
+  - Tabela Delta por caminho vs tabela Unity Catalog gerenciada em pipelines com Job
+    → Auto Loader (semana05) escreve em path: /Volumes/workspace/estudos/semana05/bronze/taxi_trips
+    → Essa tabela NÃO está registrada no Unity Catalog como workspace.estudos.bronze_taxi
+    → Tasks downstream que precisam da bronze devem usar:
+        spark.read.format('delta').load('/Volumes/workspace/estudos/semana05/bronze/taxi_trips')
+      e NÃO: spark.table('workspace.estudos.bronze_taxi')
+    → Para registrar a tabela no UC e usar spark.table(), executar após a escrita:
+        spark.sql("CREATE TABLE IF NOT EXISTS workspace.estudos.bronze_taxi
+                   USING DELTA LOCATION '/Volumes/workspace/estudos/semana05/bronze/taxi_trips'")
 
 O que FUNCIONA normalmente no Serverless:
   - spark (SparkSession) completo
