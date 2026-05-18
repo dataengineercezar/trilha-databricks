@@ -134,6 +134,7 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
   - spark.catalog.clearCache() → NOT_SUPPORTED_WITH_SERVERLESS
   - spark.databricks.delta.retentionDurationCheck.enabled → CONFIG_NOT_AVAILABLE (VACUUM RETAIN 0 HOURS bloqueado)
   - spark.conf.set() para configs Delta de retenção → CONFIG_NOT_AVAILABLE
+  - input_file_name() → UC_COMMAND_NOT_SUPPORTED — usar F.col("_metadata.file_path")
 
 O que FUNCIONA normalmente no Serverless:
   - spark (SparkSession) completo
