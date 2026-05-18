@@ -144,6 +144,9 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
     → Usar DESCRIBE DETAIL workspace.schema.tabela para obter storage location
   - is_account_admin() → ROUTINE_NOT_FOUND no Serverless
     → Substituir por current_user() = 'usuario@email.com' para Column Masks
+  - DELTA_MULTIPLE_SOURCE_ROW_MATCHING_TARGET_ROW_IN_MERGE: source do MERGE tem trip_id duplicado
+    → Bronze acumula runs com append; source fica com duplicatas a cada job run
+    → Fix: .dropDuplicates(["trip_id"]) no source antes do .merge()
   - databricks jobs create --json @arquivo.yaml não funciona de dentro do notebook
     → O YAML salvo em Volume (/Volumes/...) não é acessível como arquivo local para o CLI
     → Alternativa: criar o job via REST API com requests.post() usando token do contexto do notebook:
