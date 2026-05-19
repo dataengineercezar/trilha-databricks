@@ -26,11 +26,15 @@ Organizado como guia de consulta para revisão rápida e aprofundamento progress
 
 ## Conteúdo Premium — Semanas 03 a 12
 
-As semanas 03–12 estão disponíveis no repositório privado, com acesso liberado automaticamente após a compra.
+As semanas 03–12 estão disponíveis como **download imediato (ZIP)** via Kiwify (PIX/Boleto/Cartão BR) ou como **acesso ao repositório privado** via Gumroad (cartão internacional).
 
-> **[Adquirir acesso premium → datawizard8.gumroad.com/l/vdmiqz](https://datawizard8.gumroad.com/l/vdmiqz)**
+| Plataforma | Link | Pagamento |
+|------------|------|-----------|
+| 🇧🇷 **Kiwify** (recomendado para BR) | [pay.kiwify.com.br/MlqL7o1](https://pay.kiwify.com.br/MlqL7o1) | PIX · Boleto · Cartão |
+| 🌍 **Gumroad** | [datawizard8.gumroad.com/l/vdmiqz](https://datawizard8.gumroad.com/l/vdmiqz) | Cartão internacional |
 
-No checkout, informe seu **usuário do GitHub** — o convite ao repositório privado é enviado automaticamente em segundos.
+**Kiwify:** download do ZIP com todas as semanas é liberado imediatamente após o pagamento.  
+**Gumroad:** informe seu **usuário do GitHub** no checkout — o convite ao repositório privado é enviado automaticamente em segundos.
 
 | Semana | Tema |
 |--------|------|
