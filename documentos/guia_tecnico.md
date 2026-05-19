@@ -215,6 +215,19 @@ O que NÃO está disponível no Serverless (vs All-Purpose):
       mlflow.sklearn.log_model(model, artifact_path="model", signature=signature)
       ```
     → Nota: o UC Catalog não aceita registro sem signature — o MLflow OSS aceita mas o UC não
+  - spark_udf falha com assinatura tensor quando modelo foi treinado com numpy array:
+    → Erro: PythonException: Failed to enforce schema ... tensor spec shape of (-1, 13)
+      The input pandas dataframe column 'None' contains scalar values
+    → Causa: `infer_signature(X_train_numpy, ...)` gera assinatura tensor `[Tensor('float64', (-1,13))]`.
+      O `spark_udf` com assinatura tensor não aceita colunas individuais passadas via `*[F.col(c) for c in cols]`
+    → Fix: usar pandas DataFrame para `infer_signature` — gera assinatura colunar (com nomes de colunas):
+      ```python
+      X_tr_df = pd.DataFrame(X_tr, columns=feature_names)  # numpy → DataFrame com nomes
+      signature = infer_signature(X_tr_df, model.predict(X_tr))
+      mlflow.sklearn.log_model(model, artifact_path="model", signature=signature)
+      # Agora spark_udf aceita: predict_udf(*[F.col(c) for c in feature_names])
+      ```
+    → Regra: sempre use DataFrame (com nomes de colunas) no infer_signature quando for usar spark_udf
 
 O que FUNCIONA normalmente no Serverless:
   - spark (SparkSession) completo
