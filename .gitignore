@@ -74,6 +74,18 @@ checkpoints/
 monetizacao/
 documentos/monetizacao_repositorio.md
 
+# ─── Conteúdo premium (repo privado separado: trilha-databricks-premium) ──────
+exercicios/semana03_delta_fundamentos/
+exercicios/semana04_delta_avancado/
+exercicios/semana05_medallion/
+exercicios/semana06_databricks_sql/
+exercicios/semana07_unity_catalog/
+exercicios/semana08_workflows_dlt/
+exercicios/semana09_mlflow/
+exercicios/semana10_performance/
+exercicios/semana11_cicd/
+exercicios/semana12_certificacao/
+
 # ─── Publicações de terceiros ─────────────────────────────────────────────────
 documentos/*.pdf
 documentos/*.epub
